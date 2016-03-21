@@ -1,0 +1,13 @@
+body {
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	max-width: 60em;
+}
+
+.blog-level {
+	color: gray;
+	font-size: medium;
+}
+
+.abstract {
+	font-style: italic;
+}
