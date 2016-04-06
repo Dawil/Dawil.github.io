@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<title>Dagwil's Blog - Department of Memes</title>
+		<link type="text/css" rel="stylesheet" href="/main.css">
+	</head>
+	<body>
+		<h2>Dagwil</h2>
+<a href="/posts/2016/04/06/Department of Memes.html">Previous</a>
+|<a href="">Index</a>
+|<a href="">Next</a>
+
+		<h1>
+			Department of Memes
+			<span class="blog-level">
+				- blog level
+				3
+			</span>
+		</h1>
+		<p class="abstract">The need for openness and accessibility has made walled cities are a thing of the past. How then are our societies to protect themselves? I propose a new government department, the Department of Memes (as in Dawkings, not cat pictures). This new department would have the responsibilty of monitoring memes, or popular cultural attitudes, and studying their origins and behavior. Not only would this be a powerful tool for improving safety but I think it has many other benefits that alone justify its existence.</p>
+
+<h3>Hostile Architecture</h3>
+
+<p>While city walls have gone it's not true to say that we've stopped building defensive structures. <a href="https://en.wikipedia.org/wiki/Hostile_architecture">Hostile architecture</a> has been used for some time now to <a href="http://www.independent.co.uk/arts-entertainment/architecture/how-benches-and-public-art-became-first-line-of-defence-against-terrorists-1946466.html">protect against unwanted vehicles</a>. Using a concrete bench instead of a concrete wall to prevent a car laden with explosives is a great example of how our cities can be kept both open and secure. But <a href="http://www.theguardian.com/society/2015/feb/18/defensive-architecture-keeps-poverty-undeen-and-makes-us-more-hostile">contraversies aside</a>, I think that hostile architecture has its limits.
+
+<p>What limits? Well for all iron posts and park benches may stop vehicles they don't stop the underlying problem: the triple combination of a high population density, the enabling power of technology to do harm, and a small minority of people with the intent to harm. You might be able to stop someone attacking a defended building like an embassy, but what can you do about a <a href="https://en.wikipedia.org/wiki/Boston_Marathon_bombing">Boston Marathon bombing</a> event? Ban large congregations? Unlikely.</p>
+
+<p>We can't reduce population density, our entire society revolves around city life. We can't uninvent things, be they computers or atom bombs. So can we do something about people's intent to harm?</p>
+
+<h3>Malcontents or Mistaken?</h3>
+
+<p>In the present day, the people who wish to cause harm are largely thought to come from outside the country, and immigration control is the most commonly discussed method to keep them out. But that completely ignores the people already within the country who may be <em>infected</em> with dangerous ideas <a href="http://www.smh.com.au/technology/technology-news/facebook-and-twitter-are-losing-the-war-against-isis-expert-says-20160301-gn7oef.html">via the internet</a>. But ISIS are just the most shocking example. Anti-Vaxers, people who believe vaccines cause more harm than good, have just as much if not more potential to cause harm. Then there's people bombing abortion clinics. And dropping the life-threatening theme there's the mundane case of Australians, with a transferable vote, believing they can <a href="http://www.chickennation.com/2013/08/18/you-cant-waste-your-vote/">waste their vote</a> by voting for a small party.</p>
+
+<p>This issue is bigger than terrorism. This issue is really about how our modern digital society is <a href="https://www.youtube.com/watch?v=rE3j_RHkqJc">a hotbed</a> for harmful ideas. And ideas don't behave like armies you can keep out with walls, ideas are like viruses, even the good ones. They spread and mutate through communication, change the behavior of their host, and thus impact the world. So if ideas are like viruses, why don't we start treating them like viruses?</p>
+
+<h3>What would the Department of Memes do?</h3>
+
+<p>I'm thinking of a monitoring role, to guide political discussion, rather than an executive role. A government body with the responsibility of actually changing culture to its own interests is disconcerting to say the least. Think of it like an expansion of the Bureau of Statistics into more than things like housing, ethnicity and religion.</p>
+
+<p>It should be able to answer questions like:</p>
+<ul>
+	<li>Why are people becoming anti-vaxers?</li>
+	<li>Why are some people inclined to become ISIS supporters?</li>
+	<li>Why are some people inclined to start smoking, despite all the health warnings?</li>
+	<li>Why do some people not believe in man made climate change?</li>
+	<li>What causes the gender or ethnic differences in subject enrollment?</li>
+</ul>
+
+<p>And on a the positive side of things:</p>
+<ul>
+	<li>Why are some people starting new businesses?</li>
+	<li>Why are some communities more friendly than others?</li>
+	<li>What makes some people give to charity more than others?</li>
+</ul>
+
+<p>To be clear, I'm proposing anonymized aggregate data, not individual profiles of citizens. The purpose is to aid in political discourse, not police activities.</p>
+
+<p>Another point of clarification, I believe much of this data is already captured in one place or another. But I think that not only should the data be centralized, but it should be analyzed in the context of which ideas are spreading throughout the country.</p>
+
+<h3>What does this give us?</h3>
+
+<p>This lets us work on these issues at the right abstraction level. Once we've decided which memes and cultural attitudes we like and where they come from, or which we don't like, we can start passing directives on to a <a href="https://en.wikipedia.org/wiki/Behavioural_Insights_Team">Nudge Unit</a> to make a positive impact.</p>
+
+<p>One of the issues often raised in the anti-vaxer discussion is how they're damaging <a href="https://en.wikipedia.org/wiki/Herd_immunity">herd immunity</a>. Maybe once we start treating memes and ideas like diseases we can start reaching herd immunity against them.</p>
+
+		<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "http://dwilcox.bitbucket.org/posts/2016/04/06/Department of Memes.html.bak";
+this.page.identifier = "Department of Memes";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//dagwil.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75629451-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+	</body>
+</html>
