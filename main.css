@@ -11,3 +11,16 @@ body {
 .abstract {
 	font-style: italic;
 }
+
+.signal-2:before {
+    content: url('/images/signal-2.png');
+}
+.signal-3:before {
+    content: url('/images/signal-3.png');
+}
+.signal-4:before {
+    content: url('/images/signal-4.png');
+}
+.signal-5:before {
+    content: url('/images/signal-5.png');
+}
