@@ -1,0 +1,163 @@
+<html>
+	<head>
+		<title>Dagwil's Blog - JSON as Universal Interface</title>
+		<link type="text/css" rel="stylesheet" href="/main.css">
+	</head>
+	<body>
+		<h2>Dagwil</h2>
+<a href="/posts/2016/04/06/Department of Memes.html">Previous</a>
+|<a href="">Index</a>
+|<a href="">Next</a>
+
+		<h1>
+			JSON as Universal Interface
+			<span class="blog-level">
+				- blog level
+				3
+			</span>
+		</h1>
+		<p class="abstract">I was busy <a href="https://en.wiktionary.org/wiki/yak_shaving">shaving a yak</a> when I decided I wanted experiment with piping JSON objects instead of text. It ended up working rather well.</p>
+
+<h3>Text as Universal Interface</h3>
+
+<p>The <a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix philosophy</a> is as follows</p>
+
+<blockquote>Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.</blockquote>
+
+<p>This has worked well enough to last until now, but sometimes you want something more meaningful than just plain text. Using JSON objects allows for passing more structed information than plain text.</p>
+
+<h3>Example</h3>
+
+<p>So instead of sending an email as</p>
+
+<code>
+&nbsp;&nbsp;&nbsp;&nbsp;To: &lt;email&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;From: &lt;email&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Subject: &lt;title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;
+</code>
+
+<p>you could instead pass it around as</p>
+
+<code>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"to": "&lt;email&gt;",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"from": "&lt;email&gt;",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"subject": "&lt;title&gt;",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"body": "&lt;body&gt;"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+</code>
+
+<p>The advantage of this is extracting results becomes simpler with the addition of a tool like <a href="https://stedolan.github.io/jq/">jq</a>. Instead of getting the "To" address like this:</p>
+
+<code>$ cat email.txt | grep -E '^To:' | cut -d: -f2-</code>
+
+<p>you can do this:</p>
+
+<code>$ cat email.txt | jq '.to'</code>
+
+<h3>Tooling: Jargs and Jgrep</h3>
+
+<p>However jq on it's own isn't enough make JSON objects usable. In order to get my project to work I needed two extra utilities, jargs (much like xargs) and jgrep, defined like so:</p>
+
+<code>
+&nbsp;&nbsp;&nbsp;&nbsp;#!/usr/bin/bash<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;jargs() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while read line;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body="$2"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eval $body<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args=$(echo $line | jq "$1" | xargs -I{} echo '\"{}\"' | xargs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eval fun $args<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;jgrep() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while read line;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body="$2"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fun() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eval $body<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args=$(echo $line | jq "$1" | xargs -I{} echo '\"{}\"' | xargs)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eval fun $args &>/dev/null && echo $line<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;done<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+</code>
+
+<p>A little obtuse, as bash usually is, and somewhat brittle as well. However they functioned well enough to do the following:</p>
+
+<code>
+&nbsp;&nbsp;&nbsp;&nbsp;cat feeds \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| while read line; do curl $line | articles-to-json; done \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| jgrep '.item.guid' '! grep $1 guids' \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| jargs '.title, .item.guid, .item.link, .item.title' \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mail -s "[RSS][$1] $4" $email < <(echo $3) && echo $2 >> guids' 
+</code>
+
+<p>This is a dense but powerful bash snippet. It:</p>
+
+<ol>
+	<li>cats a list of RSS feeds,</li>
+	<li>curls each feed,</li>
+	<li>pipes the result into a 20 line ruby script,</li>
+	<li>the script converts the RSS feed into a JSON object,</li>
+	<li>jgrep filters out the JSON objects that yield a non-zero exit code for the expression '! grep $1 guids', where $1 is '.item.guid',</li>
+	<li>sends an email and appends the guid to the guids file</li>
+</ol>
+
+<p>So using only 3 pipes I get a simple program that when run emails me all unread RSS articles I'm following with easily filtered subject lines. The only code I had to write outside of bash was the 'articles-to-json' ruby program, however that could be replaced with a generic 'xml-to-json' program. I think this speaks in evidence of the usefulness of JSON as a universal interface.</p>
+
+<h3>How could this be improved?</h3>
+
+<p>As pleased as I am with the above result, it's far from perfect. Jgrep and jargs are effectively <a href="https://en.wikipedia.org/wiki/Higher-order_function">higher order functions</a> operating on JSON objects in bash. Only bash doesn't really support HOF. A more preferable syntax would be:</p>
+
+<code>
+&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;| jgrep { ! grep $.item.guid guids } \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;| jargs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mail -s "[RSS][$.title] $.item.title" $email < <(echo $.item.link) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&& echo $.item.guid >> guids<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+</code>
+
+<p>In this scenario I assume that { &lt;code&gt; } denotes an anonymous function that has implicit access to the JSON object's variables.</p>
+
+<p>Likewise the performance of this leaves much to be desired. Every single usage of jgrep or jargs includes 3 pipes and a while loop... per newline. It would make more sense for the shell to have builtin support for the above syntax of anonymous functions but also use a binary format for the objects like msgpack. Unfortunately while JSON is a plaintext format that works with the unix philosophy, going to binary objects does not work. So some form of resolution is needed there.</p>
+
+<p>In conclusion I would say there is much promise in revisiting shell design. As good as bash, plaintext and pipes are, they're still ancient. <a href="https://fishshell.com/">Fishshell</a>, one of the most modern shells outs there, gets the tone right when they describe themselves as "a command line for the 90s". Working in a programming language without HOF or objects makes most people sad, so I should expect working in a shell without them to also make people sad.</p>
+
+		<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "http://dwilcox.bitbucket.org/posts/2016/05/01/JSON as Universal Interface.html";
+this.page.identifier = "JSON as Universal Interface";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//dagwil.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75629451-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+	</body>
+</html>
