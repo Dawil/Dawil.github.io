@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<title>Dagwil's Blog - Review to View</title>
+		<link type="text/css" rel="stylesheet" href="/main.css">
+	</head>
+	<body>
+		<h2>Dagwil</h2>
+<a href="/posts/2016/05/08/Publicly Traded Employees.html">Previous</a>
+|<a href="">Index</a>
+|<a href="">Next</a>
+
+		<h1 class="signal-3">
+			Review to View
+		</h1>
+		<p class="abstract">Aggregator sites like reddit and hackernews are a valuable feature of the internet. They provide a single location for a reader to find all sorts of news articles on the web. One thing they do poorly, however, is provide a valuable signal to noise ratio. In this article I propose a crowd sourced technique for improving that which I call Review to View.</p>
+
+<h3>Existing solutions</h3>
+
+<h4>Upvoting</h4>
+
+<p>This solution is horrificly bad. It's biggest saving grace is it's better than all the others we've tried. By letting other people upvote good articles or comments and downvote bad ones, in theory, we can let later viewers see only the good stuff. However there are many problems:</p>
+
+<ul>
+	<li>people upvote things that arouse them, i.e. comedy, joy, anger, despair. Not only are relatively neutral yet significant topics over shadowed, by focusing on anger and despair these aggregators become increasingly polarized.</li>
+	<li>only some people vote. This has all the problems of optional voting in the States, compared with compulsory voting in Australia. Only the most polarized and aroused people bother to vote, the silent majority or the inconvenienced (poor people in elections, mobile users on the internet) will remain unheard.</li>
+	<li>the number of upvotes a thing receives is proportional to the number of people who view it. The number of people who view something is proportional to the number of upvotes. This leads to what I call an "algorithmically enforced circle-jerk" whereby the first comments on an article, no matter how inane, have a huge advantage in exposure over later comments.</li>
+	<li>What people value is subjective. Maybe I do want stupid cat pictures filling up my aggregator, who cares if you want news articles filled with substance? Slashdot tried multiple attributes to vote on, but I'm not aware of that having any major success and it's a fairly high level distinction. Finer grained distinctions between, e.g. news on Syria and news on Ukraine, aren't satisfied by this method</li>
+</ul>
+
+<h4>Curation</h4>
+
+<p>I think curation is a much high quality solution. Provided you can find curators you trust it solves all of the above problems. However it ends up not being as popular as the above solution because it doesn't scale well. Or rather, the above solution is what happens when you try to naive scale curation.</p>
+
+<h3>Proposed Solution</h3>
+
+<p>My proposed solution is essentially a different take at crowd sourcing curation.</p>
+
+<p>What I call "Review to View", is restricting the curated content from a user until they've reviewed some <em>random</em> content. This defeats the algorithmically enforced circle-jerk in the same way anonymous voting defeats voter intimidation. What's more it increases reviewer engagement by linking the quality of the signal the aggregator provides in direct proportion to the amount of effort put into reviews. You want the best article of the week? Review twice as many articles. This has interesting consequences.</p>
+
+<p>By equating the quality of aggregator signal with quality/quantity of effort (read below for distinction) we can also increase the sophistication of curation techniques beyond a simple upvote/downvote mechanic. We could:</p>
+
+<ul>
+	<li>add tagging to curation so that articles can get labelled as "tech", "news", "comedy", "satire", etc, instead of leaving that up to the submitter.</li>
+	<li>add related, superior or original articles. If a submitted article is a blogspam duplicate of an original article elsewhere why not mention that in curation? Or if a science article doesn't include the journal the paper discussed was published in, why not link that? And if this is a continuation of an event from 6 months ago why not link back to that?</li>
+	<li>if a comment contains a logically fallacy, list that so the comment receives less prominence</li>
+</ul>
+
+<p>Effectively, with increased engagement we can promote voters to something closer to admins. How much curation should be optional and how much should be compulsory is a tweakable detail.</p>
+
+<h3>Verification of Quality</h3>
+
+<p>Of course what's to stop a user spamming poor quality curations to get to the highest ranked content? I suggest the same thing that's used in captchas, cross-validation with other users. If a user's reviews have no correlation with the community's consensus it's likely they're putting no effort in. As such they should be rewarded with less privileged access to the curated content.</p>
+
+<p>An important note of that, is that in order for a review to be cross-validatable it has to be discrete and computer friendly. A free-form text review can't readily be compared by algorithm, but a list of URLs of related articles could be.</p>
+
+<h3>Further consequences</h3>
+
+<h4>Upvote curators, not content</h4>
+
+<p>Although not tied to the Review to View mechanism, something which I've always felt was underutilised by crowd sourced voting was subjective filters. If I upvote something you downvoted, then downvoted something you upvoted it appears that we have opposite tastes. Thus the total upvoted score I see for an article or comment should reflect that. A simple computation would be to calculate a correlation coefficient between us and use that to adjust the score.</p>
+
+<p>Of course creating a correlation coefficient from every user to every other user is an NxN operation and would make every new sign up a costly event. But I imagine creating some sort of "eigen vector of users" could solve that. Twenty eigen users would be more than enough to make the operation feasible while still offering significant differentiation of results.</p>
+
+<h4>Pay to view</h4>
+
+<p>If time is money, and I have lots of money and little time, it makes sense that I should be able to pay to see the best content. This seems perfectly reasonable. Not only that but a welcome change from ad-based revenue which pollutes the integrity of the content. Of course should the money go to the aggregator or to the curators for an article? I think some mix would be appropriate.</p>
+
+<p>The great thing about this is it enables curation as a job. Wikipedia intends for its content to all be freely accessible so it wouldn't do for them as a business model but I could see a Reddit like website making an honest living by facillitating curators.</p>
+
+		<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "http://blog.dagwil.me/posts/2016/05/08/Review to View.html";
+this.page.identifier = "Review to View";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//dagwil.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75629451-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+	</body>
+</html>
