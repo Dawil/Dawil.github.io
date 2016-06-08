@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<title>Dagwil's Blog - Antifagile and Software</title>
+		<link type="text/css" rel="stylesheet" href="/main.css">
+	</head>
+	<body>
+		<h2>Dagwil</h2>
+<a href="/posts/2016/05/29/A Book I'd Like to Read: Evolution Wars.html">Previous</a>
+|<a href="/">Index</a>
+|<a href="">Next</a>
+
+		<h1> Antifagile and Software </h1>
+		<p class=abstract>In reading <a href="https://en.wikipedia.org/wiki/Antifragile">Antifragile</a> it's seemed that the concept relates to software and programming in many ways, including language design, testing, bug bounties and project management.</a>
+
+<p>First off, I'm only 60 pages in, and the book is over 700 pages, so I'm not working with everything the book has to offer. But let's lead with a vague <a href="https://en.wikipedia.org/wiki/Antifragility">definition of antifragile</a>:</p>
+
+<blockquote>
+Antifragility is a property of systems that increase in capability, resilience, or robustness as a result of stressors, shocks, volatility, noise, mistakes, faults, attacks, or failures. It is a concept developed by Professor Nassim Nicholas Taleb in his book, Antifragile.
+</blockquote>
+
+<p>The first and most obvious software connection is <a href="http://techblog.netflix.com/2012/07/chaos-monkey-released-into-wild.html">Chaos Monkey</a>, software that will randomly take down one of your servers, raining chaos on your devs and ops. While this is no doubt a traumatic experience for the engineers involved, it's partly responsible for the high quality of service provided by Netflix. But there are other ways the notion of antifragility applies to software.</p>
+
+<h3>Static Vs. Dynamic Typing</h3>
+
+<p>Python's duck typing is a good example of a dynamically typed programming language, and Haskell's static typing a good example of a statically typed programming language. The Haskell adage, "If it compiles, it likely works", is an indication of the type system's role in correctness, or fragility. Many bugs are attempted to be caught at compile time so they can't influence the program at run time. By contrast Python puts no effort into stopping bugs at compile time.</p>
+
+<p>How does this fit with antifragility? I would say that by the definitions, this puts Python as a fragile language, and Haskell as a robust language. What about antifragile languages? Well if done right, both Python and Haskell can be antifragile with the simple inclusion of some tests.</p>
+
+<p>How so? Well if you encounter a bug you write a test for it. You write code to pass the test, deploy the patch and carry on. Now, with a CI server running before every merge, we've theoretically ruled out the possibility of that bug ever occuring again. The difference is because Python treats program correctness as orthogonal to language design, a Python programmer can't be lazy and rely on the compiler. If they want a program of any meaningful scale they have to add tests. A Haskell programmer has the unfortunate luxury of being able to delay tests, which for an undisciplined programmer can result in buggy programs.</p>
+
+<p>I think the above paragraph works for most pairings of static and dynamic languages. Replace Haskell with Java, and Python with Javascript if you like. The amount of robustness achieved may vary from type system to type system, but the point stands.</p>
+
+<h3>Agile Development & Bug Bounties</h3>
+
+<p>The other way in which this relates to software development is at the project level. I think it fair to say that a Waterfall design process, with it's more rigid timelines and resource allocations, could be classified as fragile, in contrast to Agile development's more antifragile process. I understand that Agile development varies from organisation to organisation, but in general there is (or should be) an attempt at continual iteration and improvement. The process allows and anticipates flaws being discovered, and uses that as opportunities to improve the product.</p>
+
+<p>Bug bounties are an extreme case of outsourcing the discovery of flaws to the general public. Although they serve a dual purpose of making white hat hacking more favourable than black hat hacking, they could theoretically be used to improve program correctness, not just security (e.g. reward bug reports that get patches merged).</p>
+
+<h3>Conclusion</h3>
+
+<p>I'm only 60 pages in to Antifragile, but it appears to be a fruitful, if opinionated, read. I look forward to finishing this book.</p>
+
+		<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "http://blog.dagwil.me/posts/2016/06/08/Antifagile and Software.html";
+this.page.identifier = "Antifagile and Software";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//dagwil.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75629451-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+	</body>
+</html>
